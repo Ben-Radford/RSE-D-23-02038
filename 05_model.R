@@ -51,3 +51,16 @@ print(results$cm)
 # Save test set with predictions
 testsp <- vect(test, geom=c("coords.x1", "coords.x2"), crs="epsg:4326")
 writeVector(testsp, "path_to_output.shp", overwrite=TRUE)
+
+# raster covariates 
+xvarsagg <- rast("S2_covariates_stack.tif")
+
+# raster prediction 
+predict(xvarsagg,model, filename="/rasterpredictions/DropCam_model_S2_dem_CoralCAPA_20mbuff_2021_prop.tif",
+               progress='text', type='prob',overwrite=TRUE, wopt= list(gdal=c("COMPRESS=LZW", "of=COG"), datatype='FLT4'))
+
+
+
+
+
+
